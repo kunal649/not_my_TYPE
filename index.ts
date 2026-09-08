@@ -52,7 +52,7 @@ class territory {
     area: any; 
     isProfitable: boolean; 
 
-    constructor(id: number, name:string, location, area, isProfitable:boolean) {
+    constructor(id: number, name:string, location: any, area: any, isProfitable:boolean) {
         this.id = id;
         this.name = name;
         this.location = location;
