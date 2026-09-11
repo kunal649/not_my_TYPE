@@ -33,16 +33,14 @@ let obj2 = backpack.set("hello");
 console.log(backpack); 
 
 
-interface validateBuffer<T>(arr: T[]): T | undefined {
-    if (arr.length !== null) {
-        return arr<T>; 
-    }
-    return 0; 
+interface validateBuffer<T>{
+    (arr: T[]): T | undefined; // just a signature no body
 }
-function vBuffer<T>: validateBuffer<T>{
-    if (arr.length !== null) {
-        return arr<T>; 
-    }
-    return 0; 
+
+const vBuffer: validateBuffer<number> = (arr) => {
+    if (arr.length === 0) return undefined;
+    return arr[3]; 
 }
-validateBuffer([3, 7, 8, 10]); 
+let obj3 = vBuffer([3, 7, 8, 10]); 
+console.log(obj3); 
+
