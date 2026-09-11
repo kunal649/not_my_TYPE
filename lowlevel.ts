@@ -1,7 +1,7 @@
 // Interface + generics + arrow fn + typed array
 
 interface validateBuffer<T extends ArrayBufferView & ArrayLike<number>>{
-    (arr: T): number | undefined; // just a signature no body
+    (arr: T): number | undefined; // just a signature - no body
 }
 
 const vBuffer: validateBuffer<Uint32Array> = (arr) => {
@@ -20,7 +20,7 @@ console.log(obj3);
  */
 
 interface BufferSum<T extends ArrayBufferView & ArrayLike<number>>{
-    (f_arr: T): number; 
+    (f_arr: T): number;  // f_arr: T[] means array of T's. and we want f_arr just to be T. 
 }
 
 const bufferSum : BufferSum<Float64Array> = (f_arr) => {
