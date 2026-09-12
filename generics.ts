@@ -113,9 +113,9 @@ console.log(rsp3);
  */
 
 function withoutKeys<U, A extends keyof U>(obj: U, arr: A[]): Omit<U, A> {
-    const result = {} as Omit<U, A>; 
+    const result = { ...obj } 
     for ( const v of arr ) {
-        result[v] = obj[v]; 
+        delete result[v]; 
     }
     return result; 
 }

@@ -17,6 +17,9 @@ console.log(arr)
  
 
 // Interface 
+/*
+*Interface is compile-time only construct, it has zero runtime existence. It gets erased when TS compiled to JS
+*/
 interface Num { 
     id: number,
     type: string,
