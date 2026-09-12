@@ -2,16 +2,23 @@
 * With union we can declare that a type could be one of many types, example 
 */
 
+/*
+types dont have runtime code like 'interfaces' Both have zero runtime existence, types are just lil more flexible version of interfaces. 
+*/
 type myBool = true | false; // myBool is classed as boolean -> thats a property of Structural Type System. 
 
 type desktopStates = "switched off" | "sleep" | "switched on"; 
 
 type lockStates = "locked" | "unlocked"; 
 
+type time = {createdAt: Date};
+type stamped = {stampted: boolean, id: number, user: string}; 
+type timeStamped = time & stamped; 
 
-/* *
-* union provides a way to handle different types too, example 
-*/
+type coordinates = [number, number ]; 
+
+type adder = (a: number, b: number) => number; 
+
 
 function defaultLength() {
     let isOne:boolean = false; 
@@ -41,3 +48,9 @@ function typedLength() {
     console.log(getLength(obj)); 
 }
 typedLength(); 
+
+const addThem: adder = (a, b) => a + b;  
+addThem(3.5, 8.99); 
+
+const p : coordinates = [23, 4.5]; // why cant i explicitly annotate 'coordinates' to type 'p ? -> why it has to be 'const'? 
+

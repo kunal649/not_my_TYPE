@@ -19,7 +19,7 @@ console.log(obj3);
 * array (Uint8Array, Int32Array, Float64Array, etc.) — think about what shared shape they all have. Implement it, then test with a Float64Array of your choice. 
  */
 
-interface BufferSum<T extends ArrayBufferView & ArrayLike<number>>{
+type BufferSum<T extends ArrayBufferView & ArrayLike<number>> = {
     (f_arr: T): number;  // f_arr: T[] means array of T's. and we want f_arr just to be T. 
 }
 
