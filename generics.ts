@@ -87,9 +87,6 @@ console.log(rs1);
  * object containing only those keys.
  */
 
-// const user = { id: 1, name: "kunal", email: "k@x.com", age: 22 };
-// pluck(user, ["name", "email"]); // → { name: "kunal", email: "k@x.com" }
-
 const user = { 
     id: 1, 
     name: "kunal", 
@@ -105,4 +102,23 @@ function pluck<U, A extends keyof U>(obj: U, arr: A[]): Pick<U, A>{
     return result; 
 }
 
-console.log(pluck(user, ["name", "age", "email"])); 
+const rsp3 = pluck(user, ["name", "age", "email"]); 
+console.log(rsp3); 
+
+
+// << ------------------------------------------Page End------------------------------------------------>>
+
+/**
+ * Write withoutKeys<T, K extends keyof T>(obj: T, keys: K[]): Omit<T, K>, the mirror image of pluck — returns everything except the given keys, instead of only those  * keys.
+ */
+
+function withoutKeys<U, A extends keyof U>(obj: U, arr: A[]): Omit<U, A> {
+    const result = {} as Omit<U, A>; 
+    for ( const v of arr ) {
+        result[v] = obj[v]; 
+    }
+    return result; 
+}
+
+const resp4 = withoutKeys(user, ["age", "name"]); 
+console.log(resp4); 
