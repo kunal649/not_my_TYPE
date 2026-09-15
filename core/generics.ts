@@ -20,8 +20,28 @@ function getFirstAndLast<T>(arr: T[]): [T, T] {
   return [arr[0], arr[arr.length - 1]]; 
 }
 
-console.log(getFirstAndLast([1, 44, 99.9, 12])); 
+console.log(`${getFirstAndLast([1, 44, 99.9, 12])}\n`); 
 
+// << ------------------------------------------Page End------------------------------------------------>>
+
+class Queue<T> {
+queue : T[] = new Array<T>(); 
+
+   enqueue(item: T): void {
+    this.queue.push(item); 
+   }
+
+   dequeue(): T | undefined {
+    return this.queue.shift(); 
+   } 
+
+   peekFront(): T | undefined {
+    return this.queue[this.queue.length - 1]; 
+   }
+}
+
+// << ------------------------------------------Page End------------------------------------------------>>
+console.log("<-----Stack START----->")
 class Stack<T> {
 stack :T[] = new Array<T>();    
 
@@ -42,8 +62,9 @@ s1.push("it is what it is!");
 s1.push("any doubts bud?"); 
 s1.push(34); 
 console.log("Stack: ", s1); 
-
+console.log("<-----Stack END----->\n")
 // << ------------------------------------------Page End------------------------------------------------>>
+
 
 function getWithDefault<T, K extends keyof T>(obj: T, key: K, fallback: T[K]): T[K] {
     const val: T[K] = obj[key]; 
@@ -54,6 +75,7 @@ let obj = {id: 7, payload: "image_73.jpg", type: "image", typetimestamp: Date};
 let key = 'type' ; 
 let a1n5s = getWithDefault(obj, key, obj.id );  
 console.log(a1n5s); 
+
 
 // << ------------------------------------------Page End------------------------------------------------>>
 
