@@ -20,7 +20,7 @@ type coordinates = [number, number ];
 type adder = (a: number, b: number) => number; 
 
 function formatId(id: string | number): string {
-    return "IDFormatted"; 
+    return String(id); 
 }
 console.log(formatId(34)); 
 

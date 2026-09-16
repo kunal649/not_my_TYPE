@@ -85,12 +85,12 @@ const product: Product = {
 }
 
 function toSummary(product: Product): Pick<Product, "id" | "name"> {
-    const profile = product as Pick<Product, "id" | "name">; 
-    return profile; 
+    const { id, name } = product; 
+    return {id, name}; 
 }
 function stripCategory(product: Product): Omit<Product, "category"> {
-  const profile = product as Omit<Product, "category">; 
-  return profile; 
+  const { category, ...rest } = product; 
+  return rest; 
 }
 
 // << ------------------------------------------Page End------------------------------------------------>>
@@ -103,8 +103,7 @@ function updateSetting<K extends keyof Settings>(
   key: K,
   value: Settings[K]
 ): Settings {
-    settings[key] = value; 
-    return settings; 
+    return { ...settings, [key]: value}; 
 }
 
 let ans1 = updateSetting(settings, "theme", "light"); 
