@@ -8,6 +8,13 @@ type NumberArray = Array<Number>;
 
 // << ------------------------------------------Page End------------------------------------------------>>
 
+function logAndReturn<T extends string | number>(value: T): T {
+  console.log(value); 
+  return value; 
+}
+
+// << ------------------------------------------Page End------------------------------------------------>>
+
 function wrapValue<T>(value: T): { value: T; timestamp: number } {
   const timestamp: number = 1699999999; 
   const obj = { value, timestamp }; 
@@ -15,6 +22,8 @@ function wrapValue<T>(value: T): { value: T; timestamp: number } {
 }
 
 (() => console.log(wrapValue(8)))();
+
+// << ------------------------------------------Page End------------------------------------------------>>
 
 function getFirstAndLast<T>(arr: T[]): [T, T] {
   return [arr[0], arr[arr.length - 1]]; 
@@ -36,12 +45,12 @@ queue : T[] = [];
    } 
 
    peekFront(): T | undefined {
-    return this.queue[this.queue.length - 1]; 
+    return this.queue[0];  
    }
 }
 
 // << ------------------------------------------Page End------------------------------------------------>>
-console.log("<-----Stack START----->")
+console.log("<-----Stack START----->\n")
 class Stack<T> {
 stack :T[] = [];    
 
@@ -60,8 +69,8 @@ stack :T[] = [];
 const s1 = new Stack<string>(); 
 s1.push("it is what it is!"); 
 s1.push("any doubts bud?"); 
-s1.push(34); 
-console.log("Stack: ", s1); 
+s1.push("34"); 
+console.log("Stack: \n", s1); 
 console.log("<-----Stack END----->\n")
 
 // << ------------------------------------------Page End------------------------------------------------>>
@@ -154,7 +163,7 @@ console.log(rs1);
 
 
 /**
- * Round 1: 
+ *  
  * Write a generic function pluck<T, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> — it takes an object and an array of that object's own keys, and returns a new 
  * object containing only those keys.
  */

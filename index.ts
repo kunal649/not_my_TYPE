@@ -108,3 +108,23 @@ function updateSetting<K extends keyof Settings>(
 
 let ans1 = updateSetting(settings, "theme", "light"); 
 console.log(ans1); 
+
+
+// << ------------------------------------------Page End------------------------------------------------>>
+
+interface Order {
+  orderId: string;
+  amount: number;
+  status: string;
+  customerEmail: string;
+}
+
+function getOrderPreview(order: Order): Pick<Order, "orderId" | "amount"> {
+  const { orderId, amount } = order; 
+  return { orderId, amount }; 
+}
+
+function hideCustomerInfo(order: Order): Omit<Order, "customerEmail"> {
+  const { customerEmail, ...info } = order; 
+  return info; 
+}
