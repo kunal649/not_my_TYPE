@@ -41,15 +41,14 @@ defaultLength();
 function typedLength() {
     let obj: string | string[];  
 
-    function getLength(obj: string | string[]) : number {
+    function getLength(obj: string | string[]) : void | number {
         if (typeof obj === "string") {
             obj = "kunaal"; 
             return obj.length; 
         }
         obj = ["1", "3", "4", "er"]; 
-        return obj.length; 
+        console.log(obj.length); 
     }
-    console.log(getLength(obj)); 
 }
 typedLength(); 
 
