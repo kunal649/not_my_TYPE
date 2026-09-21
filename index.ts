@@ -128,3 +128,34 @@ function hideCustomerInfo(order: Order): Omit<Order, "customerEmail"> {
   const { customerEmail, ...info } = order; 
   return info; 
 }
+
+
+// << ------------------------------------------Page End------------------------------------------------>>
+
+interface ErrorEvent {
+  type: "error";
+  message: string;
+  stack: string;
+}
+
+interface InfoEvent {
+  type: "info";
+  message: string;
+}
+
+type SDKEvent = ErrorEvent | InfoEvent;
+
+class EventTracker<T extends SDKEvent> {
+   events: T[] = []; 
+
+  capture(event: T): void {
+    this.events.push(event); 
+  }
+  getSummary(event: T): Pick<T, "type" | "message"> {
+    const { type, message, ...drop } = event; 
+
+    if (event instanceof ErrorEvent) {
+        return [type, message]; 
+    }
+  }
+}
