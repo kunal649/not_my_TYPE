@@ -161,11 +161,6 @@ class EventTracker<T extends SDKEvent> {
 // << ------------------------------------------Page End------------------------------------------------>>
 
 
-/**
- * 
- * 
-*/
-
 const defaultConfig = {
       dsn: "https://example.com/ingest",
       environment: "production",
@@ -184,4 +179,24 @@ function mergeConfig<K extends keyof SDKConfig>(base: SDKConfig, key: K, value: 
   const configObj = {...base}; 
   configObj[key] = value ?? base[key];  // fallback to base[key] if value is nullish/undefined. 
   return configObj; 
+}
+
+/**
+ * A union type ConfigSource = "env" | "file" | "default", plus a function describeSource(source: ConfigSource): string that returns a different message depending on which source it is. No generics needed here — pure union handling.
+ */
+
+type ConfigSource = "env" | "file" | "default"
+function describeSource(source: ConfigSource) : string {
+  if (source === "env") {
+    return "Sourced from env."
+  }
+
+  else if (source === "file") {
+    return "Sourced from file."
+  }
+
+  else if (source === "default") {
+    return "Sourced by default."
+  }
+  else { return "Unvalid Source!"; }
 }
