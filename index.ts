@@ -132,7 +132,7 @@ function hideCustomerInfo(order: Order): Omit<Order, "customerEmail"> {
 
 // << ------------------------------------------Page End------------------------------------------------>>
 
-interface ErrorEvent {
+interface ErrEvent {
   type: "error";
   message: string;
   stack: string;
@@ -143,7 +143,7 @@ interface InfoEvent {
   message: string;
 }
 
-type SDKEvent = ErrorEvent | InfoEvent;
+type SDKEvent = ErrEvent | InfoEvent;
 
 class EventTracker<T extends SDKEvent> {
    events: T[] = []; 
@@ -151,11 +151,37 @@ class EventTracker<T extends SDKEvent> {
   capture(event: T): void {
     this.events.push(event); 
   }
-  getSummary(event: T): Pick<T, "type" | "message"> {
-    const { type, message, ...drop } = event; 
+  getSummary(event: T): Pick<T, "type" | "message"> { 
+        const { type, message } = event; 
+        return {type, message}; 
+  } 
+}
 
-    if (event instanceof ErrorEvent) {
-        return [type, message]; 
-    }
-  }
+
+// << ------------------------------------------Page End------------------------------------------------>>
+
+
+/**
+ * 
+ * 
+*/
+
+const defaultConfig = {
+      dsn: "https://example.com/ingest",
+      environment: "production",
+      sampleRate: 1.0,
+      debug: false,
+  };
+
+type SDKConfig = typeof defaultConfig; 
+
+/**
+mergeConfig<K extends keyof SDKConfig>(base: SDKConfig, key: K, value: SDKConfig[K] | null | undefined): SDKConfig
+Returns a new config object with one key updated. If value is null or undefined, fall back to whatever base already had for that key instead — this is exactly what ?? exists for. Must not mutate base
+**/
+
+function mergeConfig<K extends keyof SDKConfig>(base: SDKConfig, key: K, value: SDKConfig[K] | null | undefined) : SDKConfig {
+  const configObj = {...base}; 
+  configObj[key] = value ?? base[key];  // fallback to base[key] if value is nullish/undefined. 
+  return configObj; 
 }
