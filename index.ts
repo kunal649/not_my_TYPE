@@ -200,3 +200,21 @@ function describeSource(source: ConfigSource) : string {
   }
   else { return "Unvalid Source!"; }
 }
+
+
+/**
+ * getPublicConfig(config: SDKConfig): Omit<SDKConfig, "dsn">
+Returns a real, new object with every field except dsn actually removed — not type-asserted away, actually absent at runtime. (dsn is the kind of field you wouldn't want leaking into a public-facing debug panel.)
+ */
+
+function getPublicConfig(config: SDKConfig) : Omit<SDKConfig, "dsn"> {
+  const { dsn, ...publicConfig} = config; 
+  return publicConfig; 
+}
+console.log(getPublicConfig(defaultConfig)); 
+
+function getDebugConfig(config: SDKConfig) : Pick<SDKConfig, "environment" | "sampleRate" | "debug"> {
+  const { dsn, ...debugConfig} = config; 
+  return debugConfig; 
+}
+console.log(getDebugConfig(defaultConfig)); 
