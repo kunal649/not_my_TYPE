@@ -242,3 +242,9 @@ class ConfigStore<T extends object> {
     this.config[key] = value;
   }
 }
+
+const store = new ConfigStore<SDKConfig>(defaultConfig); 
+
+store.get("environment");           // "production"
+store.update("environment", "staging");
+store.get("environment");           // "staging"
