@@ -218,3 +218,27 @@ function getDebugConfig(config: SDKConfig) : Pick<SDKConfig, "environment" | "sa
   return debugConfig; 
 }
 console.log(getDebugConfig(defaultConfig)); 
+
+
+// << ------------------------------------------Page End------------------------------------------------>>
+
+/**
+ * A generic class ConfigStore<T extends object> with:
+
+an internal field holding the current config of type T, set from whatever's passed into the constructor
+get<K extends keyof T>(key: K): T[K] — returns one field's value
+update<K extends keyof T>(key: K, value: T[K]): void — updates one field on the internal state (this one's allowed to mutate internally, it's meant to behave like a live store, not a pure function)
+
+ */
+
+class ConfigStore<T extends object> {
+  config: T; 
+  
+  get<K extends keyof T>(key: K) : T[K] {
+    return this.config[key]; 
+  } 
+  
+  update<K extends keyof T>(key: K, value: T[K]): void {
+    this.config[key] = value;
+  }
+}
