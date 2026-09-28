@@ -23,8 +23,12 @@ class TypeEmitter <Events extends object> {
     private handlers : {[K in keyof Events]?: Handler<Events[K]>[] } = {}; 
 
     on<K extends keyof Events> (event: K, handler: Handler<Events[K]>) : () => void {
-        
+        const list = this.handlers[event] ?? []; 
+        this.handlers[event] = [...list, handler]; 
+        return () => this.off(event, handler); 
     }
+
+    off<>(){}
     
 }
 
