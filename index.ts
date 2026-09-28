@@ -234,6 +234,10 @@ update<K extends keyof T>(key: K, value: T[K]): void — updates one field on th
 class ConfigStore<T extends object> {
   config: T; 
   
+  constructor (initial: T) {
+    this.config = initial; 
+  }
+
   get<K extends keyof T>(key: K) : T[K] {
     return this.config[key]; 
   } 
