@@ -28,7 +28,14 @@ class TypeEmitter <Events extends object> {
         return () => this.off(event, handler); 
     }
 
-    off<>(){}
+    off<K extends keyof Events> (event: K, handler: Handler<Events[K]>) : void {
+        const list = this.handlers[event] ?? []; 
+        this.handlers[event] = list.filter((h) => h !== handler); 
+    }
+    
     
 }
 
+const bus = new TypeEmitter<SDKEvents>(); 
+const unsubscribe = bus.on("captured", (e) => console.log(e.level, e.message)); 
+unsubscribe(); 
