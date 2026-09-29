@@ -33,7 +33,11 @@ class TypeEmitter <Events extends object> {
         this.handlers[event] = list.filter((h) => h !== handler); 
     }
     
-    
+    emit<K extends keyof Events>(event: K, payload: Events[K]): void {
+    const list = this.handlers[event] ?? [];
+    for (const h of list) h(payload);
+  }
+
 }
 
 const bus = new TypeEmitter<SDKEvents>(); 
