@@ -9,6 +9,10 @@
  * - same cleanup automatically with guarantee. 
  */
 
+interface SymbolConstructor {
+    readonly dispose: unique symbol;
+}
+
 // normal case 
 function fn() : void {
     using file = open("test.txt")
@@ -32,4 +36,31 @@ catch (e: any) {
     e.error.message  // "A: failed badly cant open file" <- the new error from cleanup
     e.suppressed.message  // "B: failed badly, original error" <- original error now wrapped/hidden
  } 
+
+
+
+
+/** Defines a resource object with a [Symbol.dispose]() method that throws an error with message "cleanup failed".A function that declares a resource with using, then throws a different error with message "operation failed".*/
+function pressAlphaKey(input: any): void {
+    const keyPressed = () => {
+        throw new Error("Failed! Ingestion");
+    };
+
+    using resource = {
+        input,
+        [Symbol.dispose]() {
+            console.log("cleanup: disposing resource");
+            throw new Error("cleanup failed");
+        }
+    };
+
+    keyPressed();
+}
+try {
+    pressAlphaKey("data");
+} catch (e: any) {
+    console.log("name:", e.name);                  // "SuppressedError"
+    console.log("error:", e.error.message);        // "cleanup failed"
+    console.log("suppressed:", e.suppressed.message); // "Failed! Ingestion"
+}
 
